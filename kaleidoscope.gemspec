@@ -26,5 +26,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency('activesupport', '>= 3.0.0')
 
   gem.add_dependency('RMagick', '>= 2.13.0')
+
+  gem.add_dependency('paperclip' '>= 3.3.0')
   gem
 end
