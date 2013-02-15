@@ -6,6 +6,10 @@ Kaleidoscope works by running histograms on images and converting their top 5 co
 
 Since L*a*b* relies so heavily on lightness, matches for white, black, and grey will all be quite poor compared to other color types.
 
+Here's an example:
+
+![Kaleidoscope Example](http://cl.ly/image/3n2C16170i0k)
+
 ## Requirements
 
 ### Image Processor
