@@ -16,15 +16,7 @@ Here's an example of what Kaleidoscope can do:
 
 ### Image Processor
 
-[ImageMagick](http://www.imagemagick.org/) must be installed and Kaleidoscope must have access to it. To ensure that it does, on your command line, run `which convert` (one of the ImageMagick utilities). This will give you the path where that utility is installed. For example, it might return `/usr/local/bin/convert/`.
-
-Then, in your environment config file, let Kaleidoscope know where to look by adding that directory to its path.
-
-In development mode, you might add this line to `config/environments/development.rb`:
-
-```
-Kaleidoscope.options[:command_path] = "/usr/local/bin/"
-```
+[ImageMagick](http://www.imagemagick.org/) must be installed and Kaleidoscope must have access to it via [RMagick](https://github.com/rmagick/rmagick). To ensure that it does, on your command line, run `which convert` (one of the ImageMagick utilities). This will give you the path where that utility is installed. For example, it might return `/usr/local/bin/convert/`.
 
 If you're on Mac OS X, you'll want to run the following with Homebrew:
 
