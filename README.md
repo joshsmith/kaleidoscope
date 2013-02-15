@@ -46,7 +46,7 @@ Generate your migration by specifying the Paperclip model, e.g. `Photo`:
 rails generate kaleidoscope photo
 ```
 
-This will generate the model PhotoColor.
+This will generate the model `PhotoColor`.
 
 Alternatively, in your models:
 
