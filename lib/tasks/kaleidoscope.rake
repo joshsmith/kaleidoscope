@@ -7,3 +7,12 @@ module Kaleidoscope
     end
   end
 end
+
+namespace :kaleidoscope do
+  desc "Refreshes color data."
+  task :refresh => ["kaleidoscope:refresh"]
+
+  namespace :refresh do
+    desc "Refreshes color data for a given CLASS."
+  end
+end
