@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.authors       = ["Josh Smith"]
   gem.email         = ["joshdotsmith@gmail.com"]
   gem.description   = %q{Color search for Rails}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.summary       = %q{Kaleidoscope is color search for Rails using Active Record and Paperclip. The intent behind it was to index a database of images by color for quick retrieval.}
   gem.homepage      = "https://github.com/JoshSmith/kaleidoscope"
 
   gem.files         = `git ls-files`.split($/)
