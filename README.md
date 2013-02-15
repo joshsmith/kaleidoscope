@@ -42,7 +42,7 @@ Or install it yourself as:
 
 Generate your migration by specifying the Paperclip model, e.g. `Photo`:
 
-```
+```bash
 rails generate kaleidoscope photo
 ```
 
@@ -50,7 +50,7 @@ This will generate the model PhotoColor.
 
 Alternatively, in your models:
 
-```
+```ruby
 class Photo < ActiveRecord::Base
   has_many :photo_colors
 end
@@ -64,7 +64,7 @@ end
 
 And in your migrations:
 
-```
+```ruby
 class AddPhotoColors < ActiveRecord::Migration
   def change
     create_table :photo_colors do |t|
@@ -88,7 +88,7 @@ end
 
 In your controller:
 
-```
+```ruby
 def index
   @photos = Photo.all.with_color(params[:color])
 end
@@ -96,7 +96,7 @@ end
 
 To refresh the color database:
 
-```
+```bash
 rake kaleidosocope:refresh
 ```
 
