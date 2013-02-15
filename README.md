@@ -8,7 +8,7 @@ Since L*a*b* relies so heavily on lightness, matches for white, black, and grey 
 
 Here's an example:
 
-![Kaleidoscope Example](http://cl.ly/image/3n2C16170i0k)
+![Kaleidoscope Example](http://cl.ly/image/3n2C16170i0k/Screen%20Shot%202013-02-05%20at%206.56.44%20PM.png)
 
 ## Requirements
 
