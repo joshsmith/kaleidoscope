@@ -58,7 +58,7 @@ end
 class PhotoColor < ActiveRecord::Base
   belongs_to :photo
 
-  attr_accessible :artwork_id, :distance, :frequency, :original_color, :reference_color
+  attr_accessible :photo_id, :distance, :frequency, :original_color, :reference_color
 end
 ```
 
