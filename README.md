@@ -1,5 +1,7 @@
 # Kaleidoscope
 
+[![Dependency Status](https://gemnasium.com/JoshSmith/kaleidoscope.png)](https://gemnasium.com/JoshSmith/kaleidoscope) [![Code Climate](https://codeclimate.com/github/JoshSmith/kaleidoscope.png)](https://codeclimate.com/github/JoshSmith/kaleidoscope)
+
 Kaleidoscope is color search for Rails using Active Record. The intent behind it was to index a database of images by color for quick retrieval.
 
 Kaleidoscope works by running histograms on images and converting their top 5 colors into [L*a*b* color space](http://en.wikipedia.org/wiki/Lab_color_space) for a more approximate representation of human vision. Colors are then matched to a specified set of colors using Euclidean distance. The gem will store hexadecimal values of the image's original color and the matched color, along with the frequency of that color within the image (for sorting based on frequency).
