@@ -108,11 +108,23 @@ rake kaleidosocope:refresh
 
 ## Contributing
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+Please submit pull requests! I'd love to feature you as a contributor. Here's a guide:
+
+1. Fork the repo.
+2. Run the tests. We only take pull requests with passing tests.
+3. Add a test for your change. Only refactoring and documentation changes require no new tests. If you are adding functionality or fixing a bug, we need a test.
+4. Make the test pass.
+5. Push to your fork and submit a pull request.
+
+We'll review your changes, comment, and then accept or throw it back to you for improvement.
+
+### Syntax
+
+* Two spaces, no tabs.
+* No trailing whitespace.
+* Prefer &&/II over and/or.
+* a = b and not a=b
+* Follow conventions you see used in the source already.
 
 ## TODO
 
