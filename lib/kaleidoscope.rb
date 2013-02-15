@@ -1,4 +1,5 @@
-require "kaleidoscope/version"
+require 'RMagick'
+require 'kaleidoscope/version'
 
 module Kaleidoscope
   # Your code goes here...
