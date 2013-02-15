@@ -100,8 +100,6 @@ To refresh the color database:
 rake kaleidosocope:refresh
 ```
 
-TODO: Write usage instructions here
-
 ## Contributing
 
 1. Fork it
