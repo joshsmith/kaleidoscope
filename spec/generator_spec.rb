@@ -9,16 +9,12 @@ describe 'TestMigration' do
   destination File.expand_path("../tmp", __FILE__)
   arguments %w(photo)
 
-  let(:time) { Time.new.utc.strftime("%Y%m%d%H%M%S") }
-
   before do
     prepare_destination
     run_generator
   end
 
   it 'Should create a correct migration file' do
-    # @time = time
-    # raise @time.to_yaml
     assert_migration 'db/migrate/create_photo_colors' do |migration|
       assert_match /class CreatePhotoColors/, migration
 
