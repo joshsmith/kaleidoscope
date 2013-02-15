@@ -14,6 +14,12 @@ Here's an example of what Kaleidoscope can do:
 
 ## Requirements
 
+### Paperclip
+
+Currently Kaleidoscope requires you to have [Paperclip](https://github.com/thoughtbot/paperclip) already run on the model you want indexed for color search.
+
+In the future, it would be nice if Paperclip were not a requirement and Kaleidoscope could work with, say, CarrierWave.
+
 ### Image Processor
 
 [ImageMagick](http://www.imagemagick.org/) must be installed and Kaleidoscope must have access to it via [RMagick](https://github.com/rmagick/rmagick). To ensure that it does, on your command line, run `which convert` (one of the ImageMagick utilities). This will give you the path where that utility is installed. For example, it might return `/usr/local/bin/convert/`.
