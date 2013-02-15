@@ -1,0 +1,19 @@
+class <%= migration_class_name %> < ActiveRecord::Migration
+  def change
+    create_table :<%= name.underscore %>_colors do |t|
+      t.integer :<%= name.underscore %>_id
+      t.string :original_color
+      t.string :reference_color
+      t.float :frequency
+      t.integer :distance
+
+      t.timestamps
+    end
+
+    add_index :<%= name.underscore %>_colors, :<%= name.underscore %>_id
+    add_index :<%= name.underscore %>_colors, :original_color
+    add_index :<%= name.underscore %>_colors, :reference_color
+    add_index :<%= name.underscore %>_colors, :frequency
+    add_index :<%= name.underscore %>_colors, :distance
+  end
+end

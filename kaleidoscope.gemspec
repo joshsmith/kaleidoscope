@@ -25,8 +25,12 @@ Gem::Specification.new do |gem|
   gem.add_dependency('activemodel', '>= 3.0.0')
   gem.add_dependency('activesupport', '>= 3.0.0')
 
-  gem.add_dependency('RMagick', '>= 2.13.0')
+  gem.add_dependency('rmagick', '>= 2.13.0')
 
-  gem.add_dependency('paperclip' '>= 3.3.0')
-  gem
+  gem.add_dependency('paperclip', '>= 3.3.0')
+
+  gem.add_development_dependency('rspec')
+  gem.add_development_dependency('generator_spec')
+  gem.add_development_dependency('railties')
+  gem.add_development_dependency('rails')
 end
