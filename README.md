@@ -1,6 +1,6 @@
 # Kaleidoscope
 
-[![Gem Version](https://badge.fury.io/rb/kaleidoscope.png)][gem] [![Build Status](https://travis-ci.org/JoshSmith/kaleidoscope.png?branch=master)](https://travis-ci.org/JoshSmith/kaleidoscope) [![Dependency Status](https://gemnasium.com/JoshSmith/kaleidoscope.png)](https://gemnasium.com/JoshSmith/kaleidoscope) [![Code Climate](https://codeclimate.com/github/JoshSmith/kaleidoscope.png)](https://codeclimate.com/github/JoshSmith/kaleidoscope)
+![Gem Version](https://badge.fury.io/rb/kaleidoscope.png) [![Build Status](https://travis-ci.org/JoshSmith/kaleidoscope.png?branch=master)](https://travis-ci.org/JoshSmith/kaleidoscope) [![Dependency Status](https://gemnasium.com/JoshSmith/kaleidoscope.png)](https://gemnasium.com/JoshSmith/kaleidoscope) [![Code Climate](https://codeclimate.com/github/JoshSmith/kaleidoscope.png)](https://codeclimate.com/github/JoshSmith/kaleidoscope)
 
 Kaleidoscope is color search for Rails using Active Record and Paperclip. The intent behind it was to index a database of images by color for quick retrieval.
 
