@@ -138,4 +138,4 @@ We'll review your changes, comment, and then accept or throw it back to you for 
 
 ## Thanks
 
-Huge shoutout to @jamis for releasing the Kaleidoscope name on RubyGems. Y'all should consider him honorary grandpa of this project.
+Huge shoutout to [Jamis Buck](https://github.com/jamis) for releasing the Kaleidoscope name on RubyGems. Y'all should consider him honorary grandpa of this project.
