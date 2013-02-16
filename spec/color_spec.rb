@@ -23,6 +23,8 @@ describe 'TestColors' do
 
   it "gets the correct Lab colors from XYZ" do
     lab = @color.from_xyz_to_lab({:x => 95.05, :y => 100.0, :z => 108.9})
-    raise lab.to_yaml
+    lab[:l].should eq 100.0
+    lab[:a].should eq 0.00526049995830391
+    lab[:b].should eq -0.010408184525312336
   end
 end
