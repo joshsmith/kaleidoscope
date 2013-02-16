@@ -34,8 +34,6 @@ class Color
     matches = match_color(lab_to_compare, colors_lab)
 
     sort_matches(matches)
-
-    return matches.first
   end
 
 
