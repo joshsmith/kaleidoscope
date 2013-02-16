@@ -31,9 +31,7 @@ class Color
        colors_lab << array
     end
 
-    matches = match_color(lab_to_compare, colors_lab)
-
-    sort_matches(matches)
+    sort_matches(match_color(lab_to_compare, colors_lab))
   end
 
 
