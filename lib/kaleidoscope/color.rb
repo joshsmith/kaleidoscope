@@ -39,7 +39,7 @@ class Color
   end
 
 
-  def from_rgb_to_xyz(rgb)
+  def rgb_to_xyz(rgb)
     r = r_for_xyz(rgb[:r] / 255.0) * 100
     g = g_for_xyz(rgb[:g] / 255.0) * 100
     b = b_for_xyz(rgb[:b] / 255.0) * 100
@@ -88,7 +88,7 @@ class Color
     r * 0.0193 + g * 0.1192 + b * 0.9505
   end
 
-  def from_xyz_to_lab(xyz)
+  def xyz_to_lab(xyz)
     x = xyz_for_lab(xyz[:x] / 95.047)
     y = xyz_for_lab(xyz[:y] / 100.000)
     z = xyz_for_lab(xyz[:z] / 108.883)
@@ -110,8 +110,8 @@ class Color
   end
 
   def rgb_to_lab(rgb)
-    xyz = self.from_rgb_to_xyz(rgb)
-    lab = self.from_xyz_to_lab(xyz)
+    xyz = self.rgb_to_xyz(rgb)
+    lab = self.xyz_to_lab(xyz)
     return lab
   end
 
