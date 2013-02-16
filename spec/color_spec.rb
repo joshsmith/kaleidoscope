@@ -34,4 +34,15 @@ describe 'TestColors' do
     lab[:a].should eq(0.00526049995830391)
     lab[:b].should eq(-0.010408184525267927)
   end
+
+  it "calculates the correct Euclidean distance" do
+    distance = @color.calculate_euclidean([1,1,1], [2,2,2])
+    distance.should eq(3)
+  end
+
+  it "matches the pixel correctly" do
+    match = @color.compare
+    match[:distance].should eq(0.0)
+    match[:color].should eq("#ffffff")
+  end
 end

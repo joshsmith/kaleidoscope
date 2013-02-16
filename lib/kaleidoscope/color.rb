@@ -34,96 +34,98 @@ class Color
 
     colors.each do |color|
        pixel = Magick::Pixel.from_color(color)
-       lab = get_lab_from_pixel(pixel)
+       lab = lab_from_pixel(pixel)
        array = [color, lab]
        colors_lab << array
     end
 
-    distances = get_euclidean_distances(lab_to_compare, colors_lab)
+    matches = match_color(lab_to_compare, colors_lab)
 
-    distances.sort_by! { |k| k[1] }
+    sort_matches(matches)
 
-    return distances.first
+    return matches.first
   end
 
 
   def from_rgb_to_xyz(rgb)
-    var_R = ( rgb[:r] / 255.0 )                     # RGB from 0 to 255
-    var_G = ( rgb[:g] / 255.0 )
-    var_B = ( rgb[:b] / 255.0 )
+    r = ( rgb[:r] / 255.0 )                     # RGB from 0 to 255
+    g = ( rgb[:g] / 255.0 )
+    b = ( rgb[:b] / 255.0 )
 
-    if ( var_R > 0.04045 )
-       var_R = ( ( var_R + 0.055 ) / 1.055 ) ** 2.4
+    if ( r > 0.04045 )
+       r = ( ( r + 0.055 ) / 1.055 ) ** 2.4
     else
-       var_R = var_R / 12.92
+       r = r / 12.92
     end
 
-    if ( var_G > 0.04045 )
-       var_G = ( ( var_G + 0.055 ) / 1.055 ) ** 2.4
+    if ( g > 0.04045 )
+       g = ( ( g + 0.055 ) / 1.055 ) ** 2.4
     else
-       var_G = var_G / 12.92
+       g = g / 12.92
     end
 
-    if ( var_B > 0.04045 )
-       var_B = ( ( var_B + 0.055 ) / 1.055 ) ** 2.4
+    if ( b > 0.04045 )
+       b = ( ( b + 0.055 ) / 1.055 ) ** 2.4
     else
-       var_B = var_B / 12.92
+       b = b / 12.92
     end
 
-    var_R = var_R * 100
-    var_G = var_G * 100
-    var_B = var_B * 100
+    r = r * 100
+    g = g * 100
+    b = b * 100
 
     # Observer. = 2°, Illuminant = D65
-    x = var_R * 0.4124 + var_G * 0.3576 + var_B * 0.1805
-    y = var_R * 0.2126 + var_G * 0.7152 + var_B * 0.0722
-    z = var_R * 0.0193 + var_G * 0.1192 + var_B * 0.9505
+    x = r * 0.4124 + g * 0.3576 + b * 0.1805
+    y = r * 0.2126 + g * 0.7152 + b * 0.0722
+    z = r * 0.0193 + g * 0.1192 + b * 0.9505
 
     return { :x => x, :y => y, :z => z }
   end
 
   def from_xyz_to_lab(xyz)
     # Observer= 2°, Illuminant= D65
-    var_X = xyz[:x] / 95.047
-    var_Y = xyz[:y] / 100.000
-    var_Z = xyz[:z] / 108.883
+    x = xyz[:x] / 95.047
+    y = xyz[:y] / 100.000
+    z = xyz[:z] / 108.883
 
-    if ( var_X > 0.008856 )
-       var_X = var_X ** ( 1.0/3.0 )
+    if ( x > 0.008856 )
+       x = x ** ( 1.0/3.0 )
     else
-       var_X = ( 7.787 * var_X ) + ( 16.0 / 116.0 )
+       x = ( 7.787 * x ) + ( 16.0 / 116.0 )
     end
 
 
-    if ( var_Y > 0.008856 )
-       var_Y = var_Y ** ( 1.0/3.0 )
+    if ( y > 0.008856 )
+       y = y ** ( 1.0/3.0 )
     else
-       var_Y = ( 7.787 * var_Y ) + ( 16.0 / 116.0 )
+       y = ( 7.787 * y ) + ( 16.0 / 116.0 )
     end
 
-    if ( var_Z > 0.008856 )
-       var_Z = var_Z ** ( 1.0/3.0 )
+    if ( z > 0.008856 )
+       z = z ** ( 1.0/3.0 )
     else
-       var_Z = ( 7.787 * var_Z ) + ( 16.0 / 116.0 )
+       z = ( 7.787 * z ) + ( 16.0 / 116.0 )
     end
 
-    l = ( 116 * var_Y ) - 16
-    a = 500 * ( var_X - var_Y )
-    b = 200 * ( var_Y - var_Z )
+    l = ( 116 * y ) - 16
+    a = 500 * ( x - y )
+    b = 200 * ( y - z )
 
     return { :l => l, :a => a, :b => b }
   end
 
-  def from_rgb_to_lab(rgb)
+  def rgb_to_lab(rgb)
     xyz = self.from_rgb_to_xyz(rgb)
     lab = self.from_xyz_to_lab(xyz)
     return lab
   end
 
   def get_lab
-    rgb = self.rgb_from_pixel(@pixel)
+    lab_from_pixel(@pixel)
+  end
 
-    self.from_rgb_to_lab(rgb)
+  def lab_from_pixel(pixel)
+    self.rgb_to_lab(self.rgb_from_pixel(pixel))
   end
 
   def rgb_from_pixel(pixel)
@@ -134,27 +136,28 @@ class Color
     return { :r => r, :g => g, :b => b }
   end
 
-  def get_euclidean_distances(lab, colors_lab)
-    distances = []
+  def match_color(lab, colors_lab)
+    matches = []
 
     colors_lab.each do |color|
-       # Get the L*a*b values for the color to be compared
-       l1 = lab[:l]
-       a1 = lab[:a]
-       b1 = lab[:b]
+      a = lab.map { |k, v| v }
+      b = color[1].map { |k, v| v }
 
-       # Get the L*a*b values for the reference color
-       l2 = color[1][:l]
-       a2 = color[1][:a]
-       b2 = color[1][:b]
+      # Calculate the Euclidean distance between the colors
+      distance = calculate_euclidean(a, b)
 
-       # Calculate the Euclidean distance between the colors
-       distance = ((l2 - l1) ** 2) + ((a2 - a1) ** 2) + ((b2 - b1) ** 2)
-
-       array = [color[0], distance]
-       distances << array
+      match = { color: color[0], distance: distance }
+      matches << match
     end
 
-    return distances
+    return matches
+  end
+
+  def sort_matches(matches)
+    matches.sort_by! { |k| k[:distance] }.first
+  end
+
+  def calculate_euclidean(a, b)
+    a.zip(b).map { |x| (x[1] - x[0])**2 }.reduce(:+)
   end
 end
