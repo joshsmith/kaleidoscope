@@ -29,6 +29,8 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency('paperclip', '>= 3.3.0')
 
+  gem.add_dependency('delayed_job_active_record', '>= 3.0.0')
+
   gem.add_development_dependency('rspec')
   gem.add_development_dependency('generator_spec')
   gem.add_development_dependency('railties')
