@@ -4,7 +4,7 @@ require 'kaleidoscope/color'
 describe 'TestColors' do
   before :each do
     @pixel = Magick::Pixel.from_color('#FFFFFF')
-    @color = Color.new(@pixel)
+    @color = Kaleidoscope::Color.new(@pixel)
   end
 
   it "gets the correct RGB values from pixels" do
