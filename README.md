@@ -4,7 +4,17 @@
 
 Kaleidoscope is color search for Rails using Active Record and Paperclip. The intent behind it was to index a database of images by color for quick retrieval.
 
-Kaleidoscope works by running histograms on images and converting their top *n* colors (by frequency) into [L*a*b* color space](http://en.wikipedia.org/wiki/Lab_color_space) for a more approximate representation of human vision. Colors are then matched to a specified set of colors using Euclidean distance. The gem will store hexadecimal values of the image's original color and the matched color, along with the frequency of that color within the image (for sorting based on frequency) and the Euclidean distance (for sorting by tolerance).
+Kaleidoscope uses *k*-means clustering to segment image colors into bins for quick
+
+Heres's how it works:
+
+1. Kaleidoscope runs histograms on images and converts their top *n* most frequent colors into [L*a*b* color space](http://en.wikipedia.org/wiki/Lab_color_space) for a more approximate representation of human vision.
+
+2. Colors are then matched to a user-defined set of colors using Euclidean distance.
+
+3. The gem will store hexadecimal values of the image's original color and the matched color, along with the frequency of that color within the image (for sorting based on frequency) and the Euclidean distance (for sorting by tolerance).
+
+4. You can simply call `Photos.all.with_color('#663399')` and order by frequency and Euclidean distance.
 
 Since L*a*b* relies so heavily on lightness, matches for white, black, and grey will all be quite poor compared to other color types.
 

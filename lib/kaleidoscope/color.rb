@@ -15,6 +15,8 @@ module Kaleidoscope
 
       colors_lab = []
 
+      # colors = Kaleidoscope.configuration.colors
+
       colors = ["#660000", "#990000", "#cc0000", "#cc3333", "#ea4c88",
        "#993399", "#663399", "#333399", "#0066cc", "#0099cc", "#66cccc",
        "#77cc33", "#669900", "#336600", "#666600", "#999900", "#cccc33",
@@ -49,7 +51,7 @@ module Kaleidoscope
     end
 
     def sort_matches(matches)
-      matches.sort_by! { |k| k[:distance] }.first
+      matches.min_by { |k| k[:distance] }
     end
 
     def calculate_euclidean(a, b)
