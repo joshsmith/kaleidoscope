@@ -125,6 +125,14 @@ Kaleidoscope creates a related model `<model>_color` that wraps up to four attri
 
 Kaleidoscope will create a record for each color you extract from your images.
 
+### Testing
+
+To run the RSpec tests, simply:
+
+```
+rake spec
+```
+
 ## Contributing
 
 Please submit pull requests! I'd love to feature you as a contributor. Here's a guide:
