@@ -10,9 +10,10 @@ end
 
 namespace :kaleidoscope do
   desc "Refreshes color data."
-  task :refresh => ["kaleidoscope:refresh"]
 
-  namespace :refresh do
+  task :refresh do
     desc "Refreshes color data for a given CLASS."
+
+    puts "Refreshing color data"
   end
 end
