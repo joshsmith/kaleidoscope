@@ -44,6 +44,12 @@ Or install it yourself as:
 
     $ gem install kaleidoscope
 
+After installing, you must run:
+
+    $ rails generate kaleidoscope:install
+
+This will generate the file `config/initializers/kaleidoscope.rb` where you can customize your install.
+
 ## Usage
 
 Generate your migration by specifying the Paperclip model, e.g. `Photo`:
