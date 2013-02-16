@@ -23,7 +23,7 @@ module Kaleidoscope
        "#993399", "#663399", "#333399", "#0066cc", "#0099cc", "#66cccc",
        "#77cc33", "#669900", "#336600", "#666600", "#999900", "#cccc33",
        "#ffff00", "#ffcc33", "#ff9900", "#ff6600", "#cc6633", "#996633",
-       "#663300", "#000000", "#999999", "#cccccc", "#ffffff"];
+       "#663300", "#000000", "#999999", "#cccccc", "#ffffff"]
 
       colors.each do |color|
          pixel = Magick::Pixel.from_color(color)
@@ -35,6 +35,30 @@ module Kaleidoscope
       sort_matches(match_color(lab_to_compare, colors_lab))
     end
 
+    def match_color(lab, colors_lab)
+      matches = []
+
+      colors_lab.each do |color|
+        a = lab.map { |k, v| v }
+        b = color[1].map { |k, v| v }
+
+        # Calculate the Euclidean distance between the colors
+        distance = calculate_euclidean(a, b)
+
+        match = { color: color[0], distance: distance }
+        matches << match
+      end
+
+      return matches
+    end
+
+    def sort_matches(matches)
+      matches.sort_by! { |k| k[:distance] }.first
+    end
+
+    def calculate_euclidean(a, b)
+      a.zip(b).map { |x| (x[1] - x[0])**2 }.reduce(:+)
+    end
 
     def rgb_to_xyz(rgb)
       r = r_for_xyz(rgb[:r] / 255.0) * 100
@@ -126,31 +150,6 @@ module Kaleidoscope
       b = pixel.blue / 256
 
       return { :r => r, :g => g, :b => b }
-    end
-
-    def match_color(lab, colors_lab)
-      matches = []
-
-      colors_lab.each do |color|
-        a = lab.map { |k, v| v }
-        b = color[1].map { |k, v| v }
-
-        # Calculate the Euclidean distance between the colors
-        distance = calculate_euclidean(a, b)
-
-        match = { color: color[0], distance: distance }
-        matches << match
-      end
-
-      return matches
-    end
-
-    def sort_matches(matches)
-      matches.sort_by! { |k| k[:distance] }.first
-    end
-
-    def calculate_euclidean(a, b)
-      a.zip(b).map { |x| (x[1] - x[0])**2 }.reduce(:+)
     end
   end
 end
