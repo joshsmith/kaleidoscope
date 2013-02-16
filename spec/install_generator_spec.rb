@@ -5,7 +5,7 @@ require 'generators/kaleidoscope/install_generator'
 
 describe 'TestMigration' do
   include GeneratorSpec::TestCase
-  tests InstallGenerator
+  tests Kaleidoscope::InstallGenerator
   destination File.expand_path("../tmp", __FILE__)
   arguments %w(install)
 
