@@ -13,14 +13,6 @@ class Color
     @pixel = pixel
   end
 
-  def hex
-    @hex
-  end
-
-  def hex= hex
-    @hex = hex
-  end
-
   def compare
     lab_to_compare = self.get_lab
 
