@@ -14,7 +14,7 @@ class Color
   end
 
   def compare
-    lab_to_compare = self.get_lab
+    lab_to_compare = get_lab
 
     colors = ["#660000", "#990000", "#cc0000", "#cc3333", "#ea4c88",
        "#993399", "#663399", "#333399", "#0066cc", "#0099cc", "#66cccc",
@@ -110,8 +110,8 @@ class Color
   end
 
   def rgb_to_lab(rgb)
-    xyz = self.rgb_to_xyz(rgb)
-    lab = self.xyz_to_lab(xyz)
+    xyz = rgb_to_xyz(rgb)
+    lab = xyz_to_lab(xyz)
     return lab
   end
 
@@ -120,7 +120,7 @@ class Color
   end
 
   def lab_from_pixel(pixel)
-    self.rgb_to_lab(self.rgb_from_pixel(pixel))
+    rgb_to_lab(rgb_from_pixel(pixel))
   end
 
   def rgb_from_pixel(pixel)
