@@ -45,9 +45,9 @@ class Color
     b = b_for_xyz(rgb[:b] / 255.0) * 100
 
     # Observer. = 2°, Illuminant = D65
-    x = r * 0.4124 + g * 0.3576 + b * 0.1805
-    y = r * 0.2126 + g * 0.7152 + b * 0.0722
-    z = r * 0.0193 + g * 0.1192 + b * 0.9505
+    x = x_for_xyz(r, g, b)
+    y = y_for_xyz(r, g, b)
+    z = z_for_xyz(r, g, b)
 
     return { x: x, y: y, z: z }
   end
@@ -74,6 +74,18 @@ class Color
     else
       b / 12.92
     end
+  end
+
+  def x_for_xyz(r, g, b)
+    r * 0.4124 + g * 0.3576 + b * 0.1805
+  end
+
+  def y_for_xyz(r, g, b)
+    r * 0.2126 + g * 0.7152 + b * 0.0722
+  end
+
+  def z_for_xyz(r, g, b)
+    r * 0.0193 + g * 0.1192 + b * 0.9505
   end
 
   def from_xyz_to_lab(xyz)
