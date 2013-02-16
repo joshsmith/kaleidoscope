@@ -10,10 +10,6 @@ module Kaleidoscope
       @pixel
     end
 
-    def pixel= pixel
-      @pixel = pixel
-    end
-
     def compare
       lab_to_compare = get_lab
 
