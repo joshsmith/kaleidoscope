@@ -50,7 +50,7 @@ After installing, you must run:
 
 This will generate the file `config/initializers/kaleidoscope.rb` where you can customize your install.
 
-## Usage
+## Quick Start
 
 Generate your migration by specifying the Paperclip model, e.g. `Photo`:
 
@@ -111,6 +111,19 @@ To refresh the color database:
 ```bash
 rake kaleidosocope:refresh
 ```
+
+## Usage
+
+The basics of Kaleidoscope are simple: declare that your model has colors with the `has_colors` method.
+
+Kaleidoscope creates a related model `<model>_color` that wraps up to four attributes and gives them a friendly front end. These attributes are:
+
+* `original_color` - the original color found in the image
+* `reference_color` - a matched color based on user-defined reference points
+* `frequency` - the percentage that color appears in the image
+* `distance` - Euclidean distance of original color from reference color
+
+Kaleidoscope will create a record for each color you extract from your images.
 
 ## Contributing
 

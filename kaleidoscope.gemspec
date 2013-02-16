@@ -21,6 +21,8 @@ Gem::Specification.new do |gem|
   gem.requirements << "ImageMagick"
   gem.required_ruby_version = ">= 1.9.2"
 
+  gem.add_dependency('rails', '>= 3.2.0')
+
   gem.add_dependency('activerecord', '>= 3.0.0')
   gem.add_dependency('activemodel', '>= 3.0.0')
   gem.add_dependency('activesupport', '>= 3.0.0')
