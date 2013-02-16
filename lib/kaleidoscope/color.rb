@@ -77,9 +77,9 @@ class Color
   end
 
   def from_xyz_to_lab(xyz)
-    x = x_for_lab(xyz[:x] / 95.047)
-    y = y_for_lab(xyz[:y] / 100.000)
-    z = z_for_lab(xyz[:z] / 108.883)
+    x = xyz_for_lab(xyz[:x] / 95.047)
+    y = xyz_for_lab(xyz[:y] / 100.000)
+    z = xyz_for_lab(xyz[:z] / 108.883)
 
     # Observer= 2°, Illuminant= D65
     l = ( 116 * y ) - 16
@@ -89,27 +89,11 @@ class Color
     return { :l => l, :a => a, :b => b }
   end
 
-  def x_for_lab(x)
-    if x > 0.008856
-      x ** ( 1.0/3.0 )
+  def xyz_for_lab(component)
+    if component > 0.008856
+      component ** ( 1.0 / 3.0 )
     else
-      ( 7.787 * x ) + ( 16.0 / 116.0 )
-    end
-  end
-
-  def y_for_lab(y)
-    if y > 0.008856
-      y ** ( 1.0/3.0 )
-    else
-      ( 7.787 * y ) + ( 16.0 / 116.0 )
-    end
-  end
-
-  def z_for_lab(z)
-    if z > 0.008856
-      z ** ( 1.0 / 3.0 )
-    else
-      ( 7.787 * z ) + ( 16.0 / 116.0 )
+      ( 7.787 * component ) + ( 16.0 / 116.0 )
     end
   end
 
