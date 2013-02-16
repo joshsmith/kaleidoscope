@@ -129,3 +129,7 @@ We'll review your changes, comment, and then accept or throw it back to you for 
 ## TODO
 
 1. Enable Kaleidoscope to work without requiring Paperclip. Ideally, any database of images should be searchable and we don't want to be tied down to one specific gem.
+
+## Thanks
+
+Huge shoutout to @jamis for releasing the Kaleidoscope name on RubyGems. Y'all should consider him honorary grandpa of this project.
