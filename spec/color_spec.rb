@@ -20,4 +20,9 @@ describe 'TestColors' do
     xyz[:y].should eq 100.0
     xyz[:z].should eq 108.89999999999999
   end
+
+  it "gets the correct Lab colors from XYZ" do
+    lab = @color.from_xyz_to_lab({:x => 95.05, :y => 100.0, :z => 108.9})
+    raise lab.to_yaml
+  end
 end

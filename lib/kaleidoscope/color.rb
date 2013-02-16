@@ -82,11 +82,11 @@ class Color
     return { :x => x, :y => y, :z => z }
   end
 
-  def from_xyz_to_lab(x, y, z)
+  def from_xyz_to_lab(xyz)
     # Observer= 2°, Illuminant= D65
-    var_X = x / 95.047
-    var_Y = y / 100.000
-    var_Z = z / 108.883
+    var_X = xyz[:x] / 95.047
+    var_Y = xyz[:y] / 100.000
+    var_Z = xyz[:z] / 108.883
 
     if ( var_X > 0.008856 )
        var_X = var_X ** ( 1.0/3.0 )
@@ -116,7 +116,7 @@ class Color
 
   def from_rgb_to_lab(rgb)
     xyz = self.from_rgb_to_xyz(rgb)
-    lab = self.from_xyz_to_lab(xyz[:x],xyz[:y],xyz[:z])
+    lab = self.from_xyz_to_lab(xyz)
     return lab
   end
 
