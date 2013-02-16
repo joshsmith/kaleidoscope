@@ -40,70 +40,77 @@ class Color
 
 
   def from_rgb_to_xyz(rgb)
-    r = ( rgb[:r] / 255.0 )                     # RGB from 0 to 255
-    g = ( rgb[:g] / 255.0 )
-    b = ( rgb[:b] / 255.0 )
-
-    if ( r > 0.04045 )
-       r = ( ( r + 0.055 ) / 1.055 ) ** 2.4
-    else
-       r = r / 12.92
-    end
-
-    if ( g > 0.04045 )
-       g = ( ( g + 0.055 ) / 1.055 ) ** 2.4
-    else
-       g = g / 12.92
-    end
-
-    if ( b > 0.04045 )
-       b = ( ( b + 0.055 ) / 1.055 ) ** 2.4
-    else
-       b = b / 12.92
-    end
-
-    r = r * 100
-    g = g * 100
-    b = b * 100
+    r = r_for_xyz(rgb[:r] / 255.0) * 100
+    g = g_for_xyz(rgb[:g] / 255.0) * 100
+    b = b_for_xyz(rgb[:b] / 255.0) * 100
 
     # Observer. = 2°, Illuminant = D65
     x = r * 0.4124 + g * 0.3576 + b * 0.1805
     y = r * 0.2126 + g * 0.7152 + b * 0.0722
     z = r * 0.0193 + g * 0.1192 + b * 0.9505
 
-    return { :x => x, :y => y, :z => z }
+    return { x: x, y: y, z: z }
+  end
+
+  def r_for_xyz(r)
+    if r > 0.04045
+      ( ( r + 0.055 ) / 1.055 ) ** 2.4
+    else
+      r / 12.92
+    end
+  end
+
+  def g_for_xyz(g)
+    if g > 0.04045
+      ( ( g + 0.055 ) / 1.055 ) ** 2.4
+    else
+      g / 12.92
+    end
+  end
+
+  def b_for_xyz(b)
+    if ( b > 0.04045 )
+      ( ( b + 0.055 ) / 1.055 ) ** 2.4
+    else
+      b / 12.92
+    end
   end
 
   def from_xyz_to_lab(xyz)
+    x = x_for_lab(xyz[:x] / 95.047)
+    y = y_for_lab(xyz[:y] / 100.000)
+    z = z_for_lab(xyz[:z] / 108.883)
+
     # Observer= 2°, Illuminant= D65
-    x = xyz[:x] / 95.047
-    y = xyz[:y] / 100.000
-    z = xyz[:z] / 108.883
-
-    if ( x > 0.008856 )
-       x = x ** ( 1.0/3.0 )
-    else
-       x = ( 7.787 * x ) + ( 16.0 / 116.0 )
-    end
-
-
-    if ( y > 0.008856 )
-       y = y ** ( 1.0/3.0 )
-    else
-       y = ( 7.787 * y ) + ( 16.0 / 116.0 )
-    end
-
-    if ( z > 0.008856 )
-       z = z ** ( 1.0/3.0 )
-    else
-       z = ( 7.787 * z ) + ( 16.0 / 116.0 )
-    end
-
     l = ( 116 * y ) - 16
     a = 500 * ( x - y )
     b = 200 * ( y - z )
 
     return { :l => l, :a => a, :b => b }
+  end
+
+  def x_for_lab(x)
+    if x > 0.008856
+      x ** ( 1.0/3.0 )
+    else
+      ( 7.787 * x ) + ( 16.0 / 116.0 )
+    end
+  end
+
+  def y_for_lab(y)
+    if y > 0.008856
+      y ** ( 1.0/3.0 )
+    else
+      ( 7.787 * y ) + ( 16.0 / 116.0 )
+    end
+  end
+
+  def z_for_lab(z)
+    if z > 0.008856
+      z ** ( 1.0 / 3.0 )
+    else
+      ( 7.787 * z ) + ( 16.0 / 116.0 )
+    end
   end
 
   def rgb_to_lab(rgb)
