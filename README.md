@@ -10,7 +10,7 @@ Heres's how it works:
 
 1. Pick a Paperclip model that has image attachments, for example `Photo`.
 
-2. Kaleidoscope runs histograms on `Photo`'s images and converts their top *n* most frequent colors into [L*a*b* color space](http://en.wikipedia.org/wiki/Lab_color_space) for an approximate representation of human vision.
+2. Kaleidoscope runs [histograms](http://en.wikipedia.org/wiki/Color_histogram) on `Photo`'s images and converts their top *n* most frequent colors into [L*a*b* color space](http://en.wikipedia.org/wiki/Lab_color_space) for an approximate representation of human vision.
 
 3. Colors are then matched to a user-defined set of colors using Euclidean distance, i.e. a "bin". We have a default set of 28 web-safe colors, but you can choose any array of RGB values.
 
