@@ -4,11 +4,11 @@ require 'kaleidoscope/color'
 describe 'TestColors' do
   before :each do
     @pixel = Magick::Pixel.from_color('#FFFFFF')
-    @color = Kaleidoscope::Color.new(@pixel)
+    @color = Kaleidoscope::Color.from_pixel(@pixel)
   end
 
   it "gets the correct RGB values from pixels" do
-    rgb = @color.rgb_from_pixel(@pixel)
+    rgb = @color.rgb
     rgb[:r].should equal 255
     rgb[:g].should equal 255
     rgb[:b].should equal 255
@@ -29,10 +29,13 @@ describe 'TestColors' do
   end
 
   it "gets the correct Lab colors from pixels" do
-    lab = @color.get_lab
-    lab[:l].should eq(100.0)
-    lab[:a].should eq(0.00526049995830391)
-    lab[:b].should eq(-0.010408184525267927)
+    lab = @color.lab
+    @color.l.should eq(100.0)
+    @color.l.should eq lab[:l]
+    @color.a.should eq(0.00526049995830391)
+    @color.a.should eq lab[:a]
+    @color.b.should eq(-0.010408184525267927)
+    @color.b.should eq lab[:b]
   end
 
   it "calculates the correct Euclidean distance" do

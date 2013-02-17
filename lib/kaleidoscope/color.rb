@@ -2,17 +2,69 @@ require 'RMagick'
 
 module Kaleidoscope
   class Color
-    def initialize(pixel)
-      @pixel = pixel
+    attr_accessor :rgb, :r, :g, :b, :xyz, :x, :y, :z, :lab, :l, :a, :b
+
+    def initialize(rgb)
+      @rgb = rgb
     end
 
-    def pixel
-      @pixel
+    def self.from_pixel(pixel)
+      r = pixel.red / 256
+      g = pixel.green / 256
+      b = pixel.blue / 256
+
+      Color.new({r: r, g: g, b: b})
+    end
+
+    def rgb
+      @rgb
+    end
+
+    def r
+      rgb[:r]
+    end
+
+    def g
+      rgb[:g]
+    end
+
+    def b
+      rgb[:b]
+    end
+
+    def xyz
+      @xyz ||= calculate_xyz
+    end
+
+    def x
+      xyz[:x]
+    end
+
+    def y
+      xyz[:y]
+    end
+
+    def z
+      xyz[:z]
+    end
+
+    def lab
+      @lab ||= calculate_lab
+    end
+
+    def l
+      lab[:l]
+    end
+
+    def a
+      lab[:a]
+    end
+
+    def b
+      lab[:b]
     end
 
     def compare
-      lab_to_compare = get_lab
-
       colors_lab = []
 
       # colors = Kaleidoscope.configuration.colors
@@ -25,12 +77,12 @@ module Kaleidoscope
 
       colors.each do |color|
          pixel = Magick::Pixel.from_color(color)
-         lab = lab_from_pixel(pixel)
-         array = [color, lab]
+         color_lab = lab_from_pixel(pixel)
+         array = [color, color_lab]
          colors_lab << array
       end
 
-      sort_matches(match_color(lab_to_compare, colors_lab))
+      sort_matches(match_color(lab, colors_lab))
     end
 
     def match_color(lab, colors_lab)
@@ -134,20 +186,14 @@ module Kaleidoscope
       return lab
     end
 
-    def get_lab
-      lab_from_pixel(@pixel)
-    end
-
     def lab_from_pixel(pixel)
-      rgb_to_lab(rgb_from_pixel(pixel))
+      rgb_to_lab(Color.from_pixel(pixel).rgb)
     end
 
-    def rgb_from_pixel(pixel)
-      r = pixel.red / 256
-      g = pixel.green / 256
-      b = pixel.blue / 256
+    private
 
-      return { :r => r, :g => g, :b => b }
-    end
+      def calculate_lab
+        rgb_to_lab(rgb)
+      end
   end
 end
