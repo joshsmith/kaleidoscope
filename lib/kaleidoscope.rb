@@ -6,6 +6,7 @@ require 'kaleidoscope/railtie' if defined?(Rails)
 require 'kaleidoscope/configuration'
 require 'kaleidoscope/color'
 require 'kaleidoscope/instance_methods'
+require 'kaleidoscope/logger'
 
 module Kaleidoscope
   extend Logger
