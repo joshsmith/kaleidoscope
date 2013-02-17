@@ -5,6 +5,14 @@ describe 'TestColors' do
   before :each do
     @pixel = Magick::Pixel.from_color('#FFFFFF')
     @color = Kaleidoscope::Color.from_pixel(@pixel)
+
+    Kaleidoscope.configure do |config|
+      config.colors = ["660000", "990000", "cc0000", "cc3333", "ea4c88",
+       "993399", "663399", "333399", "0066cc", "0099cc", "66cccc",
+       "77cc33", "669900", "336600", "666600", "999900", "cccc33",
+       "ffff00", "ffcc33", "ff9900", "ff6600", "cc6633", "996633",
+       "663300", "000000", "999999", "cccccc", "ffffff"]
+    end
   end
 
   it 'creates a color successfully with hex value' do

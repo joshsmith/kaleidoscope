@@ -20,4 +20,9 @@ include RSpec::Matchers
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  config.after(:each) do
+    Kaleidoscope.configure do |config|
+      config.colors = nil
+    end
+  end
 end
