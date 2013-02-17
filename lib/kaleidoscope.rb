@@ -10,6 +10,12 @@ require 'kaleidoscope/instance_methods'
 module Kaleidoscope
   # Your code goes here...
   module ClassMethods
+    def self.options
+      @options ||= {
+        log: true
+      }
+    end
+
     def has_colors
       include InstanceMethods
 
