@@ -2,7 +2,7 @@ require 'RMagick'
 
 module Kaleidoscope
   class Color
-    attr_reader :rgb, :r, :g, :b, :xyz, :x, :y, :z, :lab, :l, :a, :b
+    attr_reader :rgb, :red, :green, :blue, :xyz, :x, :y, :z, :lab, :l, :a, :b
 
     def initialize(rgb)
       @rgb = rgb
@@ -16,19 +16,24 @@ module Kaleidoscope
       Color.new({r: r, g: g, b: b})
     end
 
+    def self.from_hex(hex)
+      r, g, b = hex.scan(/../).map(&:hex)
+      Color.new({r: r, g: g, b: b})
+    end
+
     def rgb
       @rgb
     end
 
-    def r
+    def red
       rgb[:r]
     end
 
-    def g
+    def green
       rgb[:g]
     end
 
-    def b
+    def blue
       rgb[:b]
     end
 

@@ -7,11 +7,18 @@ describe 'TestColors' do
     @color = Kaleidoscope::Color.from_pixel(@pixel)
   end
 
+  it 'creates a color successfully with hex value' do
+    color = Kaleidoscope::Color.from_hex('FFFFFF')
+    color.red.should equal 255
+    color.green.should equal 255
+    color.blue.should equal 255
+  end
+
   it "gets the correct RGB values" do
     rgb = @color.rgb
-    rgb[:r].should equal 255
-    rgb[:g].should equal 255
-    rgb[:b].should equal 255
+    @color.red.should equal 255
+    @color.green.should equal 255
+    @color.blue.should equal 255
   end
 
   it "gets the correct XYZ values" do
