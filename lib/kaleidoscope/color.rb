@@ -76,8 +76,7 @@ module Kaleidoscope
        "#663300", "#000000", "#999999", "#cccccc", "#ffffff"]
 
       colors.each do |color|
-         pixel = Magick::Pixel.from_color(color)
-         color_lab = Color.from_pixel(pixel).lab
+         color_lab = Color.from_pixel(Magick::Pixel.from_color(color)).lab
          array = [color, color_lab]
          colors_lab << array
       end
