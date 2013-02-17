@@ -46,6 +46,6 @@ describe 'TestColors' do
   it "matches the pixel correctly" do
     match = @color.match
     match[:distance].should eq(0.0)
-    match[:color].should eq("#ffffff")
+    match[:color].should eq("ffffff")
   end
 end
