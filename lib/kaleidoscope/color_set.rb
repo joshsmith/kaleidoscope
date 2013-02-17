@@ -13,7 +13,7 @@ module Kaleidoscope
 
     private
 
-    attr_reader :colors
+      attr_reader :colors
 
   end
 end
