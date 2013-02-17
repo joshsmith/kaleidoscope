@@ -2,7 +2,7 @@ require 'RMagick'
 
 module Kaleidoscope
   class Color
-    attr_accessor :rgb, :r, :g, :b, :xyz, :x, :y, :z, :lab, :l, :a, :b
+    attr_reader :rgb, :r, :g, :b, :xyz, :x, :y, :z, :lab, :l, :a, :b
 
     def initialize(rgb)
       @rgb = rgb
@@ -102,10 +102,6 @@ module Kaleidoscope
     def calculate_euclidean_distance(a, b)
       a.zip(b).map { |x| (x[1] - x[0])**2 }.reduce(:+)
     end
-
-    def rgb_to_xyz(rgb)
-    end
-
 
     private
       def distance_from(color)
