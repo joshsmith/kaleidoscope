@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Kaleidoscope::Configuration do
-  describe 'when no colors are specified' do
+  context 'when no colors are specified' do
     before do
       Kaleidoscope.configure do |config|
       end
@@ -13,7 +13,7 @@ describe Kaleidoscope::Configuration do
     end
   end
 
-  describe 'when colors are specified inside a configuration block' do
+  context 'when colors are specified inside a configuration block' do
     before do
       Kaleidoscope.configure do |config|
         config.colors = ["#FFFFFF"]
@@ -25,7 +25,7 @@ describe Kaleidoscope::Configuration do
     end
   end
 
-  describe 'when colors are specified outside a configuration block' do
+  context 'when colors are specified outside a configuration block' do
     it 'sets the colors' do
       Kaleidoscope.configuration.colors = ["#FFFFFF"]
       Kaleidoscope.configuration.colors.should eq ["#FFFFFF"]
