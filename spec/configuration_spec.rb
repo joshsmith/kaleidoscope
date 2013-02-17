@@ -31,4 +31,16 @@ describe Kaleidoscope::Configuration do
       Kaleidoscope.configuration.colors.should eq ["#FFFFFF"]
     end
   end
+
+  context 'when number of colors are specified inside a configuration block' do
+    before do
+      Kaleidoscope.configure do |config|
+        config.number_of_colors = 5
+      end
+    end
+
+    it 'sets the number of colors' do
+      Kaleidoscope.configuration.number_of_colors.should be 5
+    end
+  end
 end
