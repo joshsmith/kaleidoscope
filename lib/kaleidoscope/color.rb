@@ -1,7 +1,7 @@
 module Kaleidoscope
+
   class Color
-    attr_reader :rgb, :red, :green, :blue, :xyz, :x, :y, :z, :lab, :l, :a, :b,
-      :colors, :lab_colors
+    attr_reader :rgb
 
     def initialize(rgb)
       @rgb = rgb
@@ -14,17 +14,13 @@ module Kaleidoscope
       g = pixel.green / 256
       b = pixel.blue / 256
 
-      Color.new({r: r, g: g, b: b})
+      Color.new(r: r, g: g, b: b)
     end
 
     # Create a color given a hexadecimal number, e.g. FFFFFF
     def self.from_hex(hex)
       r, g, b = hex.scan(/../).map(&:hex)
-      Color.new({r: r, g: g, b: b})
-    end
-
-    def rgb
-      @rgb
+      Color.new(r: r, g: g, b: b)
     end
 
     def red
@@ -71,36 +67,19 @@ module Kaleidoscope
       lab[:b]
     end
 
-    def lab_colors
-      @lab_colors ||= calculate_lab_colors
+    def to_hex
+      '%02x%02x%02x' % [red, green, blue]
     end
 
-    def colors
-      @colors = Kaleidoscope.configuration.colors
-    end
-
-    def match
-      shortest_distance(calculate_distances(lab))
-    end
-
-    def calculate_distances(lab)
-      lab_colors.map do |color|
-        a = lab.map { |k, v| v }
-        b = color[1].map { |k, v| v }
-
-        # Calculate the Euclidean distance between the colors
-        distance = calculate_euclidean_distance(a, b)
-
-        { color: color[0], distance: distance }
-      end
-    end
-
-
-    def calculate_euclidean_distance(a, b)
-      a.zip(b).map { |x| (x[1] - x[0])**2 }.reduce(:+)
+    def distance_from(color)
+      euclidean_distance [self.l, self.a, self.b], [color.l, color.a, color.b]
     end
 
     private
+      def euclidean_distance(a, b)
+        a.zip(b).map { |x| (x[1] - x[0])**2 }.reduce(:+)
+      end
+
       def calculate_xyz
         r = r_for_xyz(red / 255.0) * 100
         g = g_for_xyz(green / 255.0) * 100
@@ -111,7 +90,7 @@ module Kaleidoscope
         y = y_for_xyz(r, g, b)
         z = z_for_xyz(r, g, b)
 
-        return { x: x, y: y, z: z }
+        { x: x, y: y, z: z }
       end
 
       def calculate_lab
@@ -124,7 +103,7 @@ module Kaleidoscope
         a = 500 * ( x - y )
         b = 200 * ( y - z )
 
-        return { l: l, a: a, b: b }
+        { l: l, a: a, b: b }
       end
 
       def r_for_xyz(r)
@@ -168,17 +147,6 @@ module Kaleidoscope
           component ** ( 1.0 / 3.0 )
         else
           ( 7.787 * component ) + ( 16.0 / 116.0 )
-        end
-      end
-
-      def shortest_distance(distances)
-        distances.min_by { |k| k[:distance] }
-      end
-
-      def calculate_lab_colors
-        colors.map do |color|
-           color_lab = Color.from_hex(color).lab
-           [color, color_lab]
         end
       end
 

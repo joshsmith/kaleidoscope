@@ -1,59 +1,43 @@
-require 'spec_helper'
 require 'kaleidoscope/color'
 
-describe 'TestColors' do
-  before :each do
-    @pixel = Magick::Pixel.from_color('#FFFFFF')
-    @color = Kaleidoscope::Color.from_pixel(@pixel)
+describe Kaleidoscope::Color do
 
-    Kaleidoscope.configure do |config|
-      config.colors = ["660000", "990000", "cc0000", "cc3333", "ea4c88",
-       "993399", "663399", "333399", "0066cc", "0099cc", "66cccc",
-       "77cc33", "669900", "336600", "666600", "999900", "cccc33",
-       "ffff00", "ffcc33", "ff9900", "ff6600", "cc6633", "996633",
-       "663300", "000000", "999999", "cccccc", "ffffff"]
+  subject { color }
+  let(:color) { nil }
+
+  context 'when a color is created from a pixel' do
+
+    let(:white_pixel) { double(red: 65535, green: 65535, blue: 65535) } #pixel for FFFFFF
+    let(:color) { Kaleidoscope::Color.from_pixel(white_pixel) }
+
+    its(:red) { should equal 255 }
+    its(:green) { should equal 255 }
+    its(:blue) { should equal 255 }
+
+    its(:l) { should eq 100.0 }
+    its(:a) { should eq 0.00526049995830391 }
+    its(:b) { should eq -0.010408184525267927 }
+
+    its(:to_hex) { should eq 'ffffff' }
+
+    describe '#xyz' do
+      subject { color.xyz }
+
+      its([:x]) { should eq 95.05 }
+      its([:y]) { should eq 100.0 }
+      its([:z]) { should eq 108.89999999999999 }
     end
+
   end
 
-  it 'creates a color successfully with hex value' do
-    color = Kaleidoscope::Color.from_hex('FFFFFF')
-    color.red.should equal 255
-    color.green.should equal 255
-    color.blue.should equal 255
+  context 'when a color is created with a hex value' do
+
+    let(:color) { Kaleidoscope::Color.from_hex('FFFFFF') }
+
+    its(:red) { should equal 255 }
+    its(:green) { should equal 255 }
+    its(:blue) { should equal 255 }
+
   end
 
-  it "gets the correct RGB values" do
-    rgb = @color.rgb
-    @color.red.should equal 255
-    @color.green.should equal 255
-    @color.blue.should equal 255
-  end
-
-  it "gets the correct XYZ values" do
-    xyz = @color.xyz
-    xyz[:x].should eq(95.05)
-    xyz[:y].should eq(100.0)
-    xyz[:z].should eq(108.89999999999999)
-  end
-
-  it "gets the correct Lab values" do
-    lab = @color.lab
-    @color.l.should eq(100.0)
-    @color.l.should eq lab[:l]
-    @color.a.should eq(0.00526049995830391)
-    @color.a.should eq lab[:a]
-    @color.b.should eq(-0.010408184525267927)
-    @color.b.should eq lab[:b]
-  end
-
-  it "calculates the correct Euclidean distance" do
-    distance = @color.calculate_euclidean_distance([1,1,1], [2,2,2])
-    distance.should eq(3)
-  end
-
-  it "matches the pixel correctly" do
-    match = @color.match
-    match[:distance].should eq(0.0)
-    match[:color].should eq("ffffff")
-  end
 end
