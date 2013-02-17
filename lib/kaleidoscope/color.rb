@@ -102,9 +102,9 @@ module Kaleidoscope
 
     private
       def calculate_xyz
-        r = r_for_xyz(rgb[:r] / 255.0) * 100
-        g = g_for_xyz(rgb[:g] / 255.0) * 100
-        b = b_for_xyz(rgb[:b] / 255.0) * 100
+        r = r_for_xyz(red / 255.0) * 100
+        g = g_for_xyz(green / 255.0) * 100
+        b = b_for_xyz(blue / 255.0) * 100
 
         # Observer. = 2°, Illuminant = D65
         x = x_for_xyz(r, g, b)
