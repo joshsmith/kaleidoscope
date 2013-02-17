@@ -18,15 +18,11 @@ describe Kaleidoscope::Color do
     its(:a) { should eq 0.00526049995830391 }
     its(:b) { should eq -0.010408184525267927 }
 
+    its(:x) { should eq 95.05 }
+    its(:y) { should eq 100.0 }
+    its(:z) { should eq 108.89999999999999 }
+
     its(:to_hex) { should eq 'ffffff' }
-
-    describe '#xyz' do
-      subject { color.xyz }
-
-      its([:x]) { should eq 95.05 }
-      its([:y]) { should eq 100.0 }
-      its([:z]) { should eq 108.89999999999999 }
-    end
 
   end
 

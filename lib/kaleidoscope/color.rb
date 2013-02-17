@@ -1,10 +1,14 @@
 module Kaleidoscope
 
+  RGB = Struct.new(:r, :g, :b)
+  XYZ = Struct.new(:x, :y, :z)
+  LAB = Struct.new(:l, :a, :b)
+
   class Color
     attr_reader :rgb
 
     def initialize(rgb)
-      @rgb = rgb
+      @rgb = RGB.new(rgb[:r], rgb[:g], rgb[:b])
     end
 
     # Create a color given a Magick::Pixel
@@ -24,47 +28,39 @@ module Kaleidoscope
     end
 
     def red
-      rgb[:r]
+      rgb.r
     end
 
     def green
-      rgb[:g]
+      rgb.g
     end
 
     def blue
-      rgb[:b]
-    end
-
-    def xyz
-      @xyz ||= calculate_xyz
+      rgb.b
     end
 
     def x
-      xyz[:x]
+      xyz.x
     end
 
     def y
-      xyz[:y]
+      xyz.y
     end
 
     def z
-      xyz[:z]
-    end
-
-    def lab
-      @lab ||= calculate_lab
+      xyz.z
     end
 
     def l
-      lab[:l]
+      lab.l
     end
 
     def a
-      lab[:a]
+      lab.a
     end
 
     def b
-      lab[:b]
+      lab.b
     end
 
     def to_hex
@@ -76,6 +72,15 @@ module Kaleidoscope
     end
 
     private
+
+      def xyz
+        @xyz ||= calculate_xyz
+      end
+
+      def lab
+        @lab ||= calculate_lab
+      end
+
       def euclidean_distance(a, b)
         a.zip(b).map { |x| (x[1] - x[0])**2 }.reduce(:+)
       end
@@ -90,7 +95,7 @@ module Kaleidoscope
         y = y_for_xyz(r, g, b)
         z = z_for_xyz(r, g, b)
 
-        { x: x, y: y, z: z }
+        XYZ.new(x, y, z).freeze
       end
 
       def calculate_lab
@@ -103,7 +108,7 @@ module Kaleidoscope
         a = 500 * ( x - y )
         b = 200 * ( y - z )
 
-        { l: l, a: a, b: b }
+        LAB.new(l, a, b).freeze
       end
 
       def r_for_xyz(r)
@@ -123,7 +128,7 @@ module Kaleidoscope
       end
 
       def b_for_xyz(b)
-        if ( b > 0.04045 )
+        if b > 0.04045
           ( ( b + 0.055 ) / 1.055 ) ** 2.4
         else
           b / 12.92
