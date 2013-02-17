@@ -16,7 +16,7 @@ Heres's how it works:
 
 4. The gem will store hexadecimal values of the image's original color and the matched color, along with the frequency of that color within the image (for sorting based on frequency) and the Euclidean distance (for sorting by tolerance).
 
-5. You can simply call `Photo.all.with_color('#663399')` and order by frequency and Euclidean distance. You can also use `@photo.colors` for display.
+5. You can simply call `Photo.all.with_color('#993399')` (like in the example below) and order by frequency and Euclidean distance. You can also use `@photo.colors` for display.
 
 6. New records are automagically segmented into bins for you.
 
