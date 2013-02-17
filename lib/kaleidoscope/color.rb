@@ -5,7 +5,6 @@ module Kaleidoscope
   LAB = Struct.new(:l, :a, :b)
 
   class Color
-    attr_reader :rgb
 
     def initialize(rgb)
       @rgb = RGB.new(rgb[:r], rgb[:g], rgb[:b])
@@ -72,6 +71,8 @@ module Kaleidoscope
     end
 
     private
+
+      attr_reader :rgb
 
       def xyz
         @xyz ||= calculate_xyz
