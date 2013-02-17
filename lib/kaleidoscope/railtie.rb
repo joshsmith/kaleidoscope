@@ -19,6 +19,7 @@ module Kaleidoscope
 
       if defined?(ActiveRecord)
         Kaleidoscope.options[:logger] = ActiveRecord::Base.logger
+        ActiveRecord::Base.send(:include, Kaleidoscope::Glue)
       end
     end
   end
