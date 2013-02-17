@@ -64,7 +64,7 @@ module Kaleidoscope
       lab[:b]
     end
 
-    def compare
+    def match
       colors_lab = []
 
       # colors = Kaleidoscope.configuration.colors
@@ -75,88 +75,42 @@ module Kaleidoscope
        "#ffff00", "#ffcc33", "#ff9900", "#ff6600", "#cc6633", "#996633",
        "#663300", "#000000", "#999999", "#cccccc", "#ffffff"]
 
-      colors.each do |color|
+      colors_lab = colors.map do |color|
          color_lab = Color.from_pixel(Magick::Pixel.from_color(color)).lab
-         array = [color, color_lab]
-         colors_lab << array
+         [color, color_lab]
       end
 
       sort_matches(match_color(lab, colors_lab))
     end
 
     def match_color(lab, colors_lab)
-      matches = []
-
-      colors_lab.each do |color|
+      colors_lab.map do |color|
         a = lab.map { |k, v| v }
         b = color[1].map { |k, v| v }
 
         # Calculate the Euclidean distance between the colors
-        distance = calculate_euclidean(a, b)
+        distance = calculate_euclidean_distance(a, b)
 
-        match = { color: color[0], distance: distance }
-        matches << match
+        { color: color[0], distance: distance }
       end
-
-      return matches
     end
 
     def sort_matches(matches)
       matches.min_by { |k| k[:distance] }
     end
 
-    def calculate_euclidean(a, b)
+    def calculate_euclidean_distance(a, b)
       a.zip(b).map { |x| (x[1] - x[0])**2 }.reduce(:+)
     end
 
     def rgb_to_xyz(rgb)
     end
 
-    def r_for_xyz(r)
-      if r > 0.04045
-        ( ( r + 0.055 ) / 1.055 ) ** 2.4
-      else
-        r / 12.92
-      end
-    end
-
-    def g_for_xyz(g)
-      if g > 0.04045
-        ( ( g + 0.055 ) / 1.055 ) ** 2.4
-      else
-        g / 12.92
-      end
-    end
-
-    def b_for_xyz(b)
-      if ( b > 0.04045 )
-        ( ( b + 0.055 ) / 1.055 ) ** 2.4
-      else
-        b / 12.92
-      end
-    end
-
-    def x_for_xyz(r, g, b)
-      r * 0.4124 + g * 0.3576 + b * 0.1805
-    end
-
-    def y_for_xyz(r, g, b)
-      r * 0.2126 + g * 0.7152 + b * 0.0722
-    end
-
-    def z_for_xyz(r, g, b)
-      r * 0.0193 + g * 0.1192 + b * 0.9505
-    end
-
-    def xyz_for_lab(component)
-      if component > 0.008856
-        component ** ( 1.0 / 3.0 )
-      else
-        ( 7.787 * component ) + ( 16.0 / 116.0 )
-      end
-    end
 
     private
+      def distance_from(color)
+      end
+
       def calculate_xyz
         r = r_for_xyz(rgb[:r] / 255.0) * 100
         g = g_for_xyz(rgb[:g] / 255.0) * 100
@@ -181,6 +135,50 @@ module Kaleidoscope
         b = 200 * ( y - z )
 
         return { l: l, a: a, b: b }
+      end
+
+      def r_for_xyz(r)
+        if r > 0.04045
+          ( ( r + 0.055 ) / 1.055 ) ** 2.4
+        else
+          r / 12.92
+        end
+      end
+
+      def g_for_xyz(g)
+        if g > 0.04045
+          ( ( g + 0.055 ) / 1.055 ) ** 2.4
+        else
+          g / 12.92
+        end
+      end
+
+      def b_for_xyz(b)
+        if ( b > 0.04045 )
+          ( ( b + 0.055 ) / 1.055 ) ** 2.4
+        else
+          b / 12.92
+        end
+      end
+
+      def x_for_xyz(r, g, b)
+        r * 0.4124 + g * 0.3576 + b * 0.1805
+      end
+
+      def y_for_xyz(r, g, b)
+        r * 0.2126 + g * 0.7152 + b * 0.0722
+      end
+
+      def z_for_xyz(r, g, b)
+        r * 0.0193 + g * 0.1192 + b * 0.9505
+      end
+
+      def xyz_for_lab(component)
+        if component > 0.008856
+          component ** ( 1.0 / 3.0 )
+        else
+          ( 7.787 * component ) + ( 16.0 / 116.0 )
+        end
       end
   end
 end

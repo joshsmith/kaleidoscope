@@ -32,12 +32,12 @@ describe 'TestColors' do
   end
 
   it "calculates the correct Euclidean distance" do
-    distance = @color.calculate_euclidean([1,1,1], [2,2,2])
+    distance = @color.calculate_euclidean_distance([1,1,1], [2,2,2])
     distance.should eq(3)
   end
 
   it "matches the pixel correctly" do
-    match = @color.compare
+    match = @color.match
     match[:distance].should eq(0.0)
     match[:color].should eq("#ffffff")
   end
