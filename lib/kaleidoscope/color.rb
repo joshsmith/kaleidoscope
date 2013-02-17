@@ -77,7 +77,7 @@ module Kaleidoscope
 
       colors.each do |color|
          pixel = Magick::Pixel.from_color(color)
-         color_lab = lab_from_pixel(pixel)
+         color_lab = Color.from_pixel(pixel).lab
          array = [color, color_lab]
          colors_lab << array
       end
@@ -111,16 +111,6 @@ module Kaleidoscope
     end
 
     def rgb_to_xyz(rgb)
-      r = r_for_xyz(rgb[:r] / 255.0) * 100
-      g = g_for_xyz(rgb[:g] / 255.0) * 100
-      b = b_for_xyz(rgb[:b] / 255.0) * 100
-
-      # Observer. = 2°, Illuminant = D65
-      x = x_for_xyz(r, g, b)
-      y = y_for_xyz(r, g, b)
-      z = z_for_xyz(r, g, b)
-
-      return { x: x, y: y, z: z }
     end
 
     def r_for_xyz(r)
@@ -159,19 +149,6 @@ module Kaleidoscope
       r * 0.0193 + g * 0.1192 + b * 0.9505
     end
 
-    def xyz_to_lab(xyz)
-      x = xyz_for_lab(xyz[:x] / 95.047)
-      y = xyz_for_lab(xyz[:y] / 100.000)
-      z = xyz_for_lab(xyz[:z] / 108.883)
-
-      # Observer= 2°, Illuminant= D65
-      l = ( 116 * y ) - 16
-      a = 500 * ( x - y )
-      b = 200 * ( y - z )
-
-      return { :l => l, :a => a, :b => b }
-    end
-
     def xyz_for_lab(component)
       if component > 0.008856
         component ** ( 1.0 / 3.0 )
@@ -180,20 +157,31 @@ module Kaleidoscope
       end
     end
 
-    def rgb_to_lab(rgb)
-      xyz = rgb_to_xyz(rgb)
-      lab = xyz_to_lab(xyz)
-      return lab
-    end
-
-    def lab_from_pixel(pixel)
-      rgb_to_lab(Color.from_pixel(pixel).rgb)
-    end
-
     private
+      def calculate_xyz
+        r = r_for_xyz(rgb[:r] / 255.0) * 100
+        g = g_for_xyz(rgb[:g] / 255.0) * 100
+        b = b_for_xyz(rgb[:b] / 255.0) * 100
+
+        # Observer. = 2°, Illuminant = D65
+        x = x_for_xyz(r, g, b)
+        y = y_for_xyz(r, g, b)
+        z = z_for_xyz(r, g, b)
+
+        return { x: x, y: y, z: z }
+      end
 
       def calculate_lab
-        rgb_to_lab(rgb)
+        x = xyz_for_lab(xyz[:x] / 95.047)
+        y = xyz_for_lab(xyz[:y] / 100.000)
+        z = xyz_for_lab(xyz[:z] / 108.883)
+
+        # Observer= 2°, Illuminant= D65
+        l = ( 116 * y ) - 16
+        a = 500 * ( x - y )
+        b = 200 * ( y - z )
+
+        return { l: l, a: a, b: b }
       end
   end
 end
