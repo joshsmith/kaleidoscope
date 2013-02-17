@@ -8,14 +8,15 @@ require 'kaleidoscope/color'
 require 'kaleidoscope/instance_methods'
 
 module Kaleidoscope
-  # Your code goes here...
-  module ClassMethods
-    def self.options
-      @options ||= {
-        log: true
-      }
-    end
+  extend Logger
 
+  def self.options
+    @options ||= {
+      log: true
+    }
+  end
+
+  module ClassMethods
     def has_colors
       include InstanceMethods
 
