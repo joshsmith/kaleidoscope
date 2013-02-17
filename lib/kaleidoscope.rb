@@ -7,6 +7,7 @@ require 'kaleidoscope/configuration'
 require 'kaleidoscope/color'
 require 'kaleidoscope/instance_methods'
 require 'kaleidoscope/logger'
+require 'kaleidoscope/glue'
 
 module Kaleidoscope
   extend Logger
