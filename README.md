@@ -2,19 +2,23 @@
 
 ![Gem Version](https://badge.fury.io/rb/kaleidoscope.png) [![Build Status](https://travis-ci.org/JoshSmith/kaleidoscope.png)](https://travis-ci.org/JoshSmith/kaleidoscope) [![Dependency Status](https://gemnasium.com/JoshSmith/kaleidoscope.png)](https://gemnasium.com/JoshSmith/kaleidoscope) [![Code Climate](https://codeclimate.com/github/JoshSmith/kaleidoscope.png)](https://codeclimate.com/github/JoshSmith/kaleidoscope)
 
-Kaleidoscope is color search for Rails using Active Record and Paperclip. The intent behind it was to index a database of images by color for quick retrieval.
+Kaleidoscope is color search for Rails using Active Record and Paperclip.
 
-Kaleidoscope uses *k*-means clustering to segment image colors into bins for quick
+Kaleidoscope uses *k*-means clustering to segment a database of images into color bins for quick searching. You can use this for color search in a photo-sharing site or even for a retail application (look at all the purple purses!).
 
 Heres's how it works:
 
-1. Kaleidoscope runs histograms on images and converts their top *n* most frequent colors into [L*a*b* color space](http://en.wikipedia.org/wiki/Lab_color_space) for a more approximate representation of human vision.
+1. Pick a Paperclip model that has image attachments, for example `Photo`.
 
-2. Colors are then matched to a user-defined set of colors using Euclidean distance.
+2. Kaleidoscope runs histograms on `Photo`'s images and converts their top *n* most frequent colors into [L*a*b* color space](http://en.wikipedia.org/wiki/Lab_color_space) for an approximate representation of human vision.
 
-3. The gem will store hexadecimal values of the image's original color and the matched color, along with the frequency of that color within the image (for sorting based on frequency) and the Euclidean distance (for sorting by tolerance).
+3. Colors are then matched to a user-defined set of colors using Euclidean distance, i.e. a "bin". We have a default set of 28 web-safe colors, but you can choose any array of RGB values.
 
-4. You can simply call `Photos.all.with_color('#663399')` and order by frequency and Euclidean distance.
+4. The gem will store hexadecimal values of the image's original color and the matched color, along with the frequency of that color within the image (for sorting based on frequency) and the Euclidean distance (for sorting by tolerance).
+
+5. You can simply call `Photo.all.with_color('#663399')` and order by frequency and Euclidean distance. You can also use `@photo.colors` for display.
+
+6. New records are automagically segmented into bins for you.
 
 Since L*a*b* relies so heavily on lightness, matches for white, black, and grey will all be quite poor compared to other color types.
 
