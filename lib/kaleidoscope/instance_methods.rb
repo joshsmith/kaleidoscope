@@ -9,8 +9,7 @@ module Kaleidoscope
     def generate_colors
       if has_colors_configured?
         Kaleidoscope.log("Generating colors for #{self.class.model_name}.")
-        image_url = self.image.url
-        magick_image = read_image_into_imagemagick(image_url)
+
         histogram = generate_histogram_for(magick_image)
         pixels = histogram.keys
 
@@ -101,6 +100,10 @@ module Kaleidoscope
 
     def color_class
       Object.const_get("#{self.class.name}Color")
+    end
+
+    def magick_image
+      @magick_image ||= read_image_into_imagemagick(self.image.url)
     end
   end
 end
