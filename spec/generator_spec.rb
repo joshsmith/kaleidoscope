@@ -25,7 +25,7 @@ describe 'TestMigration' do
             t.string :original_color
             t.string :reference_color
             t.float :frequency
-            t.integer :distance
+            t.float :distance
 
             t.timestamps
           end

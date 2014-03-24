@@ -36,4 +36,14 @@ describe Kaleidoscope::Color do
 
   end
 
+  context 'when a color is created with a hex value containing hashtags' do
+
+    let(:color) { Kaleidoscope::Color.from_hex('#FFFFFF') }
+
+    its(:red) { should equal 255 }
+    its(:green) { should equal 255 }
+    its(:blue) { should equal 255 }
+
+  end
+
 end

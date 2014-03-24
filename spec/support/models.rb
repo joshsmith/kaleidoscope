@@ -9,8 +9,8 @@ class Photo < ActiveRecord::Base
   do_not_validate_attachment_file_type :image, :content_type => /\Aimage\/.*\Z/
 
   has_attached_file :image,
-    :url => File.dirname(__FILE__) + "/tmp/images/:style/:filename",
-    :path => File.dirname(__FILE__) + "/tmp/images/:style/:filename"
+    :url => File.dirname(__FILE__) + "/tmp/images/:style/:id/:filename",
+    :path => File.dirname(__FILE__) + "/tmp/images/:style/:id/:filename"
 
   attr_accessor :image_file_name
 end

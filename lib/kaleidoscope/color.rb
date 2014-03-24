@@ -22,6 +22,7 @@ module Kaleidoscope
 
     # Create a color given a hexadecimal number, e.g. FFFFFF
     def self.from_hex(hex)
+      hex = strip_hex(hex)
       r, g, b = hex.scan(/../).map(&:hex)
       Color.new(r: r, g: g, b: b)
     end
@@ -66,11 +67,19 @@ module Kaleidoscope
       '%02x%02x%02x' % [red, green, blue]
     end
 
+    def to_lab
+      lab
+    end
+
     def distance_from(color)
       euclidean_distance [self.l, self.a, self.b], [color.l, color.a, color.b]
     end
 
     private
+
+      def self.strip_hex(hex)
+        hex.delete('#')
+      end
 
       attr_reader :rgb
 

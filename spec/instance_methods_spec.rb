@@ -17,20 +17,19 @@ describe Kaleidoscope::InstanceMethods do
 
     before do
       Kaleidoscope.configure do |config|
-        config.colors = ["#FFFFFF"]
-        config.number_of_colors = 1
+        config.colors = ["#FFFFFF", "#0099CC"]
+        config.number_of_colors = 2
       end
     end
 
-    it 'should generate colors for a model' do
+    it 'should generate matching colors for a model' do
       photo = Photo.create(image: image_file)
-      photo.photo_colors.count.should eq 1
+      photo.photo_colors.count.should eq 2
     end
 
   end
 
-
   def image_file
-    fixture_file_upload("spec/fixtures/upload.jpg", "image/jpeg")
+    fixture_file_upload("spec/fixtures/twitter.png", "image/jpeg")
   end
 end

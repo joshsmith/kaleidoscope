@@ -78,6 +78,8 @@ Alternatively, in your models:
 
 ```ruby
 class Photo < ActiveRecord::Base
+  has_colors
+  
   has_many :photo_colors
 end
 
