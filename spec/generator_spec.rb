@@ -15,7 +15,7 @@ describe 'TestMigration' do
   end
 
   it 'Should create a correct migration file' do
-    assert_migration 'db/migrate/create_photo_colors' do |migration|
+    assert_migration 'db/migrate/create_photo_colors.rb' do |migration|
       assert_match /class CreatePhotoColors/, migration
 
       assert_method :change, migration do |change|
