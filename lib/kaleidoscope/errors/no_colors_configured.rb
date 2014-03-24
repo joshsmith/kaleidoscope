@@ -1,0 +1,2 @@
+class NoColorsConfiguredError < StandardError
+end
