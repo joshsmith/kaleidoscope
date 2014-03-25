@@ -22,7 +22,7 @@ module Kaleidoscope
     def has_colors
       include InstanceMethods
 
-      after_save :generate_colors
+      after_commit :generate_colors
       after_destroy :destroy_colors
     end
 

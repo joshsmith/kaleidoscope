@@ -6,6 +6,7 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'pry'
+gem 'pry-nav'
 
 group :development, :test do
   gem 'sqlite3'
