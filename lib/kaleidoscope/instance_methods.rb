@@ -108,7 +108,7 @@ module Kaleidoscope
       @magick_image ||= read_image_into_imagemagick(self.image.url)
     end
 
-    def distance_between(pixel:, match:)
+    def distance_between(pixel: pixel, match: match)
       pixel_color = color_from(pixel)
       pixel_color.distance_from(match)     
     end
