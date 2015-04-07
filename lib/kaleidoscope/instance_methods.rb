@@ -70,8 +70,8 @@ module Kaleidoscope
     end
 
     # Possibly extract out these methods
-    def read_image_into_imagemagick(image_url)
-      Magick::Image.read(image_url).first
+    def read_image_into_imagemagick(image_path)
+      Magick::Image.read(image_path).first
     end
 
     def generate_histogram_for(magick_image)
@@ -105,7 +105,7 @@ module Kaleidoscope
     end
 
     def magick_image
-      @magick_image ||= read_image_into_imagemagick(self.image.url)
+      @magick_image ||= read_image_into_imagemagick(self.image.path)
     end
 
     def distance_between(pixel: pixel, match: match)
